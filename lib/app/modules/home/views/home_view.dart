@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 import 'dart:math' as math show Random;
 
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
   HomeController homeController = Get.find<HomeController>();
 
   final PagingController<int, PostModel> _paginationController =
-      PagingController(firstPageKey: 0);
+      PagingController(firstPageKey: 1);
 
   @override
   void dispose() {
@@ -56,8 +57,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: const Text("Demo for List Pagination"), centerTitle: true),
+      appBar: AppBar(
+          title: const Text("Demo for List Pagination"), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: PagedListView(
@@ -67,16 +68,21 @@ class _HomeViewState extends State<HomeView> {
               final color =
                   Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
                       .withOpacity(0.9);
-              return Card(
-                  elevation: 2,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                        backgroundColor: color,
-                        radius: 40,
-                        child: Text((index + 1).toString())),
-                    title: Text(item.title!),
-                    subtitle: Text(item.body!),
-                  ));
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.COMMENTS, arguments: {"id": item.id!});
+                },
+                child: Card(
+                    elevation: 2,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                          backgroundColor: color,
+                          radius: 40,
+                          child: Text((item.id!).toString())),
+                      title: Text(item.title!),
+                      subtitle: Text(item.body!),
+                    )),
+              );
             })),
       ),
     );

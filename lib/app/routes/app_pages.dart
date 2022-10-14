@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:listing_pagination_demo/app/modules/home/views/comments_view.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -14,6 +15,10 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () =>  HomeView(),
+      binding: HomeBinding(),
+    ), GetPage(
+      name: _Paths.COMMENTS,
+      page: () =>  CommentsView(),
       binding: HomeBinding(),
     ),
   ];
